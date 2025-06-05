@@ -1,98 +1,4 @@
 
-
-export const chainsConfig = [
-    {
-        chainId: '0x14a34',
-        chainName: 'Base Sepolia Testnet',
-        nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18
-        },
-        rpcUrls:['https://sepolia.base.org'],
-        blockExplorerUrls:['https://base-sepolia.blockscout.com/'],
-        tokenContractUSDC_Testnet:'0x036CbD53842c5426634e7929541eC2318f3dCF7e',
-        tokenContractUSDC_Mainnet:'	0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-        assignedCap:{}
-    },
-
-   {  
-        chainId: '0xaef3',
-        chainName: 'Celo Alfajores Testnet',
-        nativeCurrency: {
-            name: 'CELO',
-            symbol: 'CELO',
-            decimals: 18
-        },
-        rpcUrls:['https://alfajores-forno.celo-testnet.org'],
-        blockExplorerUrls:['https://alfajores.celoscan.io'],
-        tokenContractUSDC_Testnet:'0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B',
-        tokenContractUSDC_Mainnet:'0xcebA9300f2b948710d2653dD7B07f33A8B32118C',
-        assignedCap:{}
-    },
-        
-    {
-         chainId: '0xaa36a7',
-        chainName: 'Sepolia',
-        nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18
-        },
-        rpcUrls:['https://rpc.therpc.io/ethereum-sepolia'],
-        blockExplorerUrls:['https://sepolia.etherscan.io/'],
-        tokenContractUSDC_Testnet:'0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
-        tokenContractUSDC_Mainnet:'0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        assignedCap:{}
-    },
-
-    {
-         chainId: '0x66eee',
-        chainName: 'Arbitrum Sepolia',
-        nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18
-        },
-        rpcUrls:['https://arbitrum-sepolia.drpc.org'],
-        blockExplorerUrls:['https://sepolia.arbiscan.io/','https://arbitrum-sepolia.blockscout.com/'],
-        tokenContractUSDC_Testnet:'0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d',
-        tokenContractUSDC_Mainnet:'0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
-        assignedCap:{}
-    },
-
-    {
-        chainId: '0xaa37dc',
-        chainName: 'OP Georli Testnet',
-        nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18
-        },
-        rpcUrls:['https://sepolia.optimism.io'],
-        blockExplorerUrls:['https://sepolia-optimism.etherscan.io/'],
-        tokenContractUSDC_Testnet:'0x5fd84259d66Cd46123540766Be93DFE6D43130D7',
-        tokenContractUSDC_Mainnet:'0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
-        assignedCap:{}
-    },
-
-    {
-        chainId: '0x515',
-        chainName: 'Unichain Sepolia Testnet',
-        nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18
-        },
-        rpcUrls:['https://sepolia.unichain.org'],
-        blockExplorerUrls:['https://unichain-sepolia.blockscout.com/'],
-        tokenContractUSDC_Testnet:'0x31d0220469e10c4E71834a79b1f276d740d3768F',
-        tokenContractUSDC_Mainnet:'0x078D782b760474a361dDA0AF3839290b0EF57AD6',
-        assignedCap:{}
-    }
-]
-
-
 export const ERC20_ABI =  [
     {
         "constant": true,
@@ -314,4 +220,363 @@ export const ERC20_ABI =  [
         "name": "Transfer",
         "type": "event"
     }
+]
+export const CryptoLogoAddress = '0x134A427eCe15A4fa798ca0051dcEAB8046d5a5De' 
+export const CryptoLogoABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "vrfCoordinator",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "have",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "want",
+				"type": "address"
+			}
+		],
+		"name": "OnlyCoordinatorCanFulfill",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "have",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "coordinator",
+				"type": "address"
+			}
+		],
+		"name": "OnlyOwnerOrCoordinator",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "ZeroAddress",
+		"type": "error"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "vrfCoordinator",
+				"type": "address"
+			}
+		],
+		"name": "CoordinatorSet",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferRequested",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "randomWords",
+				"type": "uint8"
+			}
+		],
+		"name": "RequestReceived",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "numWords",
+				"type": "uint256"
+			}
+		],
+		"name": "RequestSent",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "Caller",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "Number",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "activeNumber",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "generated",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "generatedLogo",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "lastRequestId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "randomWords",
+				"type": "uint256[]"
+			}
+		],
+		"name": "rawFulfillRandomWords",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requestIds",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "requestRandomWords",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "s_vrfCoordinator",
+		"outputs": [
+			{
+				"internalType": "contract IVRFCoordinatorV2Plus",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_vrfCoordinator",
+				"type": "address"
+			}
+		],
+		"name": "setCoordinator",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
 ]
