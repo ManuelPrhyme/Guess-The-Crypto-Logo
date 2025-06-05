@@ -53,6 +53,15 @@ const Herodash = () => {
       setPlay(false)
   }
 
+  const generateLogo = async () => {
+      await walletClient.writeContract({
+        address:CryptoLogoAddress,
+        abi:CryptoLogoABI,
+        functionName: 'requestRandomWords',
+        account: Accounts[0]
+      })
+  }
+
   const fetchLogoData = async () =>{
     const LogoData = await publicClient.simulateContract({
       address:CryptoLogoAddress,
@@ -127,25 +136,29 @@ const Herodash = () => {
           <h1 id="AssignSecConnect">Connect Wallet</h1> 
           : 
            !play ? <button id='Play' onClick={setPlayFunc}><h1>Play</h1></button> :
-          <div id="SpendArea">
+          
+          <div id="GameArea">
 
-            <div id="SpendHead">
+            <div id="GameHead">
             <h2 className='head'>What Web3 entity does the logo represent</h2>
             <hr className='hr'/>
            
             </div>
 
-            <div className='spendContent'>  
+            <div className='gameContent'>  
                <h5 className='warning'>
             Note: You have a really short time and this is the only time we have to do it
             </h5>
             <img id="cryptoLogo" src={LogoData[2]} alt={`${LogoData[1]} Logo`} />
-              <div id='recepient'>
+              <div id='answer'>
                 <h4>Enter your answer</h4>
                 <input type="text" placeholder='e.g ethereum' value={RecepientAcc} 
                 onChange={(e)=>{setRecepient(e.target.value);}}
                 />
-                <button onClick={()=>{}}>Submit Answer</button>
+                <button onClick={async ()=>{
+                  await generateLogo()
+                  await fetchLogoData()
+                }}>Submit Answer</button>
               </div>
             </div>
           </div>
