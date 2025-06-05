@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Logo from '../../public/FavIcon.svg'
-import {ethers, parseUnits, formatUnits} from 'ethers'
 import './Dash.css'
 import {CryptoLogoABI,CryptoLogoAddress} from './chainConfigs'
-import {createPublicClient,http} from 'viem'
+import {createPublicClient,http,createWalletClient,custom} from 'viem'
 import {baseSepolia} from 'viem/chains'
 
   const publicClient = createPublicClient({
@@ -11,6 +10,10 @@ import {baseSepolia} from 'viem/chains'
   transport: http()
 })
 
+const walletClient = createWalletClient({
+  chain:baseSepolia,
+  transport:custom(window.ethereum)
+})
 
 const Herodash = () => {
 
@@ -23,25 +26,18 @@ const Herodash = () => {
   const [DelegatedAcc,setDelegate] = useState()
   const [LogoData,setLogoData] = useState([])
   const [ActiveChain,setActiveChain] = useState()
-  
+  const [play,setPlay] = useState(false)
  
 
   // ---Connect Function----
   const connect = async () => {
     if(window.ethereum) {
         try {
-            const _Provider = new ethers.BrowserProvider(window.ethereum)
-            const _Signer =  await _Provider.getSigner()
-            const _accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
+            const _accounts = await walletClient.requestAddresses()
             const _activeChain =  await window.ethereum.request({method: "eth_chainId"})
-            // await _Signer.signMessage(`Welcome to Guess-The-Crypto-Logo`)
-            setProvider(_Provider)
-            setSigner(_Signer)
             setAccounts(_accounts);
             setIsConnected(true);
             setActiveChain(_activeChain);
-            console.log('Assigned provider..',Provider)
-            console.log('Assigned signer..',Signer)
             fetchLogoData() 
         }
         catch(error){
@@ -54,7 +50,7 @@ const Herodash = () => {
   const disconnect = async () => {
       await window.ethereum.request({method:'wallet_revokePermissions',params:[{eth_accounts:{}}]})
       setIsConnected(false);
-
+      setPlay(false)
   }
 
   const fetchLogoData = async () =>{
@@ -69,9 +65,8 @@ const Herodash = () => {
   }
 
   
-      const Spend  = async () => {
-          
- 
+      const setPlayFunc  = async () => {
+          setPlay(true)
       }
  
 
@@ -129,9 +124,9 @@ const Herodash = () => {
         <div className='contentArea'>
           
           { !isConnected ? 
-          <h3 id="AssignSecConnect">Connect Wallet</h3> 
+          <h1 id="AssignSecConnect">Connect Wallet</h1> 
           : 
-          //This is the Spend Area
+           !play ? <button id='Play' onClick={setPlayFunc}><h1>Play</h1></button> :
           <div id="SpendArea">
 
             <div id="SpendHead">
@@ -144,7 +139,7 @@ const Herodash = () => {
                <h5 className='warning'>
             Note: You have a really short time and this is the only time we have to do it
             </h5>
-            <img src={LogoData[2]} alt={`${LogoData[1]} Logo`} />
+            <img id="cryptoLogo" src={LogoData[2]} alt={`${LogoData[1]} Logo`} />
               <div id='recepient'>
                 <h4>Enter your answer</h4>
                 <input type="text" placeholder='e.g ethereum' value={RecepientAcc} 
@@ -154,7 +149,7 @@ const Herodash = () => {
               </div>
             </div>
           </div>
-
+          
           }
         
         </div>
